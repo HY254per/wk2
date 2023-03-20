@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Form</title>
+	<style>
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+			background-color: rgba(0, 0, 0,0.5);
+        }
+		body{
+			background-image:url('home_tab.png');
+			background-size: cover;
+			background-position: center;
+		}
+        .sub-container{
+            max-width: 550px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px grey;
+			background-color: rgba(255, 255, 255,0.9);
+        }
+		input[type=text], input[type=password], select {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		}
+
+		input[type=submit] {
+		  width: 100%;
+		  background-color: #062e6f;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+          font-size: 18px;
+          font-weight: bold;
+		}
+
+		input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+
+		.error {
+		  color: red;
+		  font-weight: bold;
+		  margin-bottom: 10px;
+		}
+
+		.success {
+		  color: green;
+		  font-weight: bold;
+		  margin-bottom: 10px;
+		}
+        hr{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            height: 5px;
+            background-color: black;
+        }
+		#capture-lg{
+			width: 80px;
+			height: auto;
+			border-radius: 40px;
+		}
+		#title{
+			font-size: 28px;
+			font-weight: bold;
+		}
+		#header{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			justify-content: space-between;
+		}
+	</style>
+</head>
+<body>
+    <div class="container">
+        <div class="sub-container">
+            <div style="text-align: center; color:#062e6f" id="header"> 
+				<span id="title">Student Data Capture</span>
+				<img src="toon1.png" id="capture-lg"/>
+			</div>
+            <hr>
+            <form id="myForm" onsubmit="return validateForm()">
+                <label for="name">Full name:</label>
+                <input type="text" id="name" name="name" placeholder="Maxwel John" required>
+        
+                <label for="email">Email address:</label>
+                <input type="text" id="email" name="email" placeholder="max@example.com" required>
+        
+                <label for="phone">Phone number:</label>
+                <input type="text" id="phone" name="phone" placeholder="0700000000" required>
+        
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+        
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="********" required>
+        
+                <input type="submit" value="Submit">
+            </form>
+        
+            <div id="error" class="error"></div>
+            <div id="success" class="success"></div>
+        </div>
+    </div>
+
+	<script>
+		function validateForm() {
+			var name = document.forms["myForm"]["name"].value;
+			var email = document.forms["myForm"]["email"].value;
+			var phone = document.forms["myForm"]["phone"].value;
+			var gender = document.forms["myForm"]["gender"].value;
+			var password = document.forms["myForm"]["password"].value;
+			var error = document.getElementById("error");
+			var success = document.getElementById("success");
+
+			if (name == "" || email == "" || phone == "" || gender == "" || password == "") {
+				error.innerHTML = "Please fill out all fields";
+				return false;
+			} else {
+				error.innerHTML = "";
+			}
+
+			var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!email.match(emailRegex)) {
+				error.innerHTML = "Please enter a valid email address";
+				return false;
+			} else {
+				error.innerHTML = "";
+			}
+
+			// Success message
+			success.innerHTML = "Form submitted successfully!";
+			return true;
+		}
+	</script>
+</body>
+</html>
